@@ -53,16 +53,21 @@ function shuffle() {
 function ShowBall() {
 	if(randomedNumArr.Count == 4) {
 		for(var i = 0; i < randomedNumArr.Count;) {	
-//			if(!isShow[randomedNumArr[i]]) {
-				listGrid[randomedNumArr[i]].transform.FindChild("Pic").active = true;
-//				isShow[randomedNumArr[i]] = true;
-				Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
-				yield WaitForSeconds(2.0f);
-				var temp = randomedNumArr[i];
+			listGrid[randomedNumArr[i]].transform.FindChild("Pic").active = true;
+			Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
+			yield WaitForSeconds(0.2f);
+			var temp = randomedNumArr[i];
+			var sprite = listGrid[temp].transform.FindChild("Pic").GetComponent(SpriteRenderer);
+			if(sprite.sortingOrder != 0 && sprite.sortingOrder != 2)
 				listGrid[temp].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder = -1;
-				Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
-				i++;
-//			}
+			Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
+			i++;
+			Debug.Log(i);
+			if(i == 4) {
+				for(var g:GameObject in listGrid) {
+					g.collider2D.enabled = true;			
+				}
+			}
 		}
 	}
 }
