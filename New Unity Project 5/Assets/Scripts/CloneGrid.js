@@ -11,7 +11,18 @@ public var randomCount:int;
 
 public var randomedNumArr:Array;
 
-public var isShow:boolean[];
+static var roundCount:int;
+
+public var speed:float;
+	
+function Awake() {
+	speed = 1.0f;
+	roundCount++;
+	if(roundCount % 5 == 0)
+		speed -= roundCount/5*0.05;
+		
+	Debug.Log("Speed = "+speed);
+}
 
 function Start () {
 	randomedNumArr = new Array();
@@ -54,15 +65,12 @@ function ShowBall() {
 	if(randomedNumArr.Count == 4) {
 		for(var i = 0; i < randomedNumArr.Count;) {	
 			listGrid[randomedNumArr[i]].transform.FindChild("Pic").active = true;
-			Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
-			yield WaitForSeconds(0.2f);
+			yield WaitForSeconds(speed);
 			var temp = randomedNumArr[i];
 			var sprite = listGrid[temp].transform.FindChild("Pic").GetComponent(SpriteRenderer);
 			if(sprite.sortingOrder != 0 && sprite.sortingOrder != 2)
 				listGrid[temp].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder = -1;
-			Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
 			i++;
-			Debug.Log(i);
 			if(i == 4) {
 				for(var g:GameObject in listGrid) {
 					g.collider2D.enabled = true;			
