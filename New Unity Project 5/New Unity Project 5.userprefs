@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TouchBall.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CloneGrid.js">
     <Files>
-      <File FileName="Assets/Scripts/CloneGrid.js" Line="56" Column="8" />
+      <File FileName="Assets/Scripts/CloneGrid.js" Line="67" Column="29" />
       <File FileName="Assets/Scripts/TouchBall.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

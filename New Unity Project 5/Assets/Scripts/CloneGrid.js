@@ -11,6 +11,8 @@ public var randomCount:int;
 
 public var randomedNumArr:Array;
 
+public var isShow:boolean[];
+
 function Start () {
 	randomedNumArr = new Array();
 	randomCount = 4;
@@ -23,9 +25,6 @@ function Start () {
 			var index = listGrid.FindIndex(function(go:GameObject) go == g);
 			touchBall.touchIndex = index;
 		}
-	}
-	for(var temp:GameObject in listGrid) {
-		temp.transform.FindChild("Pic").active = false;
 	}
 }
 
@@ -53,10 +52,17 @@ function shuffle() {
 
 function ShowBall() {
 	if(randomedNumArr.Count == 4) {
-		for(var i = 0; i < randomedNumArr.Count;) {
-			listGrid[randomedNumArr[i]].transform.FindChild("Pic").active = true;
-			yield new WaitForSeconds(0.8f);
-			i++;
+		for(var i = 0; i < randomedNumArr.Count;) {	
+//			if(!isShow[randomedNumArr[i]]) {
+				listGrid[randomedNumArr[i]].transform.FindChild("Pic").active = true;
+//				isShow[randomedNumArr[i]] = true;
+				Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
+				yield WaitForSeconds(2.0f);
+				var temp = randomedNumArr[i];
+				listGrid[temp].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder = -1;
+				Debug.Log("Index = "+randomedNumArr[i]+" Sort Order = "+listGrid[i].transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder);
+				i++;
+//			}
 		}
 	}
 }
