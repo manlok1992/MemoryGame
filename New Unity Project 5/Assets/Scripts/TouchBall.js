@@ -1,7 +1,7 @@
 ﻿#pragma strict
 import UnityEngine.UI;
 
-static public var ballIndex:int[] = [0,0,0,0];
+static public var ballIndex:int[];
 
 public var touchIndex:int;
 
@@ -24,9 +24,10 @@ function Awake() {
 	rightCount = 0;
 	k = 0;
 	touchIndexArr = new Array();
-	tempIndex = new int[4];
+	tempIndex = new int[Setting.ballCount];
 	isCorrect = false;
 	isWrong = false;
+	ballIndex = new int[Setting.ballCount];
 }
 
 function Start () {
@@ -35,18 +36,17 @@ function Start () {
 
 function Update () {
 	nowCount = ballIndex[k];
-	for(var i = 0; i < 4; i++) {
+	for(var i = 0; i < tempIndex.Length; i++) {
 		tempIndex[i] = ballIndex[i];
 	}
 }
 
 function OnMouseDown() {
-	for(var i = 0; i < 4; i++) {
+	for(var i = 0; i < Setting.ballCount; i++) {
 		if(ballIndex[i] != -1) {
-			Debug.Log("before i = "+i);
 			if(ballIndex[i] == touchIndex) {
 				if(touchIndex == nowCount) {
-					if(k < 3)
+					if(k < Setting.ballCount-1)
 						k++;
 					ballIndex[i] = -1;
 					gameObject.transform.FindChild("Pic").GetComponent(SpriteRenderer).sortingOrder = 2;
@@ -54,7 +54,7 @@ function OnMouseDown() {
 					
 					rightCount++;
 					isCorrect = true;
-					if(rightCount == 4) {
+					if(rightCount == Setting.ballCount) {
 						GameObject.Find("Text").GetComponent(Text).text = "Correct";
 						yield WaitForSeconds(3.0f);
 						Application.LoadLevel(0);
@@ -63,8 +63,6 @@ function OnMouseDown() {
 				}
 			}
 			else {
-				Debug.Log("i = "+i);
-				Debug.Log("ballIndex[i] = "+ballIndex[i]+" index = "+touchIndex);
 				var wrongCount = 0;
 				for(var temp in touchIndexArr) {
 					if(temp != touchIndex) {
