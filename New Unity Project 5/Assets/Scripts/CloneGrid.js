@@ -19,6 +19,10 @@ public var isDebug:boolean;
 
 public var shuffleArr:Array;
 
+static public var timer:float;
+
+static public var isEnd = false;
+
 function Awake() {
 	speed = 1.0f;
 	roundCount++;
@@ -45,11 +49,19 @@ function Start () {
 			touchBall.touchIndex = index;
 		}
 	}
+	isEnd = false;
 }
 
 function Update () {
 	Shuffle(shuffleArr);
 	setShuffleArray();
+	if(GameObject.Find("Text").GetComponent(Text).text == "GameOver") {
+		for(var temp:GameObject in listGrid) {
+			if(temp.active == true) {
+				temp.active = false;
+			}
+		}
+	}
 }
 
 function Shuffle(a:Array)
@@ -95,6 +107,13 @@ function ShowBall() {
 				sprite.sortingOrder = -1;
 			i++;
 			if(i == Setting.ballCount) {
+				if(!CloneGrid.isEnd) {
+					timer += Time.deltaTime;
+					if(timer < 10)
+						GameObject.Find("CountDown").GetComponent(Text).text = (10-timer).ToString();
+					else 
+						GameObject.Find("CountDown").GetComponent(Text).text = "0";
+				}
 				for(var g:GameObject in listGrid) {
 					g.collider2D.enabled = true;			
 				}

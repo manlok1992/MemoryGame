@@ -23,6 +23,8 @@ static var score:int = 0;
 
 static var isSetScore = false;
 
+var option;
+
 function Awake() {
 	nowCount = 0;
 	rightCount = 0;
@@ -43,9 +45,10 @@ function Update () {
 	for(var i = 0; i < tempIndex.Length; i++) {
 		tempIndex[i] = ballIndex[i];
 	}
-	if(ConnectDB.connectMsg == "Connect") {
-		ConnectDB.connectMsg = "";
-		Application.LoadLevel(3);
+	if(ConnectDB.requestMsg.Contains("Connect") && !ConnectDB.requestMsg.Contains("Name is already used")) {
+		ConnectDB.requestMsg = "";
+		Debug.Log("Lose");
+		Application.LoadLevel(0);
 	}
 }
 
@@ -65,6 +68,7 @@ function OnMouseDown() {
 					score += 10;
 					if(rightCount == Setting.ballCount) {
 						GameObject.Find("Text").GetComponent(Text).text = "Correct";
+						CloneGrid.isEnd = true;
 						yield WaitForSeconds(3.0f);
 						Application.LoadLevel(3);
 					}
@@ -79,17 +83,22 @@ function OnMouseDown() {
 					}
 				}
 				if(wrongCount == touchIndexArr.Count) {
-					GameObject.Find("Text").GetComponent(Text).text = "Wrong";
+					GameObject.Find("Text").GetComponent(Text).text = "GameOver";
 					CloneGrid.roundCount = 0;
 					isWrong = true;
+					CloneGrid.isEnd = true;
 					yield WaitForSeconds(3.0f);
 					var k = new Array();
 					var v = new Array();
 					k.Add("Score");
 					k.Add("TestName");
+					k.Add("Timer");
 					var tempScore = score;
+					var tempTimer = CloneGrid.timer;
 					v.Add(tempScore);
 					v.Add(PlayerPrefs.GetString("Name"));
+					v.Add(tempTimer);
+					CloneGrid.timer = 0;
 					isSetScore = true;
 					ConnectDB.ConnectURL(k,v);
 					score = 0;

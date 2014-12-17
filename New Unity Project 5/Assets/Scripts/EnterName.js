@@ -2,14 +2,21 @@
 
 static var playerName:String = "";
 static var isEnterName = false;
-
+var option;
 function Start () {
 	
 }
 
 function Update () {
-	if(ConnectDB.connectMsg == "Connect") {
+	if(ConnectDB.requestMsg.Contains("Connect") && !ConnectDB.requestMsg.Contains("Name is already used")) {
+		ConnectDB.requestMsg = "";
 		Application.LoadLevel(3);
+	}
+	else if(ConnectDB.requestMsg.Contains("Name is already used")) {
+		if(option == null) {
+			var option = UnityEditor.EditorUtility.DisplayDialog("Name is already used", "Name is already used", "OK");
+			ConnectDB.requestMsg = "";
+		}
 	}
 }
 
