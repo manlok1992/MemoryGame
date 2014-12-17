@@ -68,9 +68,9 @@ function Shuffle(a:Array)
 		a[rnd] = temp;
 	}
 	
-	for(var j = 0; j < a.Count; j++) {
-		Debug.Log(a[j]);	
-	}
+//	for(var j = 0; j < a.Count; j++) {
+//		Debug.Log(a[j]);	
+//	}
 }
 
 function setShuffleArray() {

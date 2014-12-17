@@ -19,6 +19,10 @@ static var isCorrect:boolean;
 
 static var isWrong:boolean;
 
+static var score:int = 0;
+
+static var isSetScore = false;
+
 function Awake() {
 	nowCount = 0;
 	rightCount = 0;
@@ -39,6 +43,10 @@ function Update () {
 	for(var i = 0; i < tempIndex.Length; i++) {
 		tempIndex[i] = ballIndex[i];
 	}
+	if(ConnectDB.connectMsg == "Connect") {
+		ConnectDB.connectMsg = "";
+		Application.LoadLevel(3);
+	}
 }
 
 function OnMouseDown() {
@@ -54,10 +62,11 @@ function OnMouseDown() {
 					
 					rightCount++;
 					isCorrect = true;
+					score += 10;
 					if(rightCount == Setting.ballCount) {
 						GameObject.Find("Text").GetComponent(Text).text = "Correct";
 						yield WaitForSeconds(3.0f);
-						Application.LoadLevel(0);
+						Application.LoadLevel(3);
 					}
 					break;
 				}
@@ -74,7 +83,16 @@ function OnMouseDown() {
 					CloneGrid.roundCount = 0;
 					isWrong = true;
 					yield WaitForSeconds(3.0f);
-					Application.LoadLevel(0);
+					var k = new Array();
+					var v = new Array();
+					k.Add("Score");
+					k.Add("TestName");
+					var tempScore = score;
+					v.Add(tempScore);
+					v.Add(PlayerPrefs.GetString("Name"));
+					isSetScore = true;
+					ConnectDB.ConnectURL(k,v);
+					score = 0;
 				}
 			}
 		}
