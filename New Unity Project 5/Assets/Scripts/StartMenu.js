@@ -1,10 +1,18 @@
 ﻿#pragma strict
 public var skin:GUISkin;
 
+var scaleX:float;
+var scaleY:float;
+
 function Start () {
 	if(!Setting.isSave)
 		Setting.ballCount = 4;
-		PlayerPrefs.DeleteAll();
+	PlayerPrefs.DeleteAll();
+	CloneGrid.timer = 0;
+	TouchBall.timerArr = new Array();
+	Debug.Log("width = "+Screen.width+" height = "+Screen.height);
+	scaleX = Screen.width/728;
+	scaleY = Screen.height/410;
 }
 
 function Update () {
@@ -14,9 +22,9 @@ function Update () {
 function OnGUI() {
 	GUI.skin = skin;
 	
-	GUI.Label(Rect(Screen.width/2-200/2, Screen.height/4, Screen.width/3.58,Screen.height/4.03), "Start Menu");
+	GUI.Label(Rect(Screen.width/2-200/2*scaleX, Screen.height/4, 203*scaleX,104*scaleY), "Start Menu");
 	
-	if(GUI.Button(Rect(Screen.width/2-50, Screen.height/2.5, Screen.width/7.16, Screen.height/20.15), "Start")) {
+	if(GUI.Button(Rect(Screen.width/2-50*scaleX, Screen.height/2.5, 101*scaleX, 20*scaleY), "Start")) {
 		if(!PlayerPrefs.GetString("Name")) {
 			Application.LoadLevel(1);
 		}
@@ -25,11 +33,11 @@ function OnGUI() {
 		}
 	}
 	
-	if(GUI.Button(Rect(Screen.width/2-50, Screen.height/2, Screen.width/7.16, Screen.height/20.15), "Setting")) {
+	if(GUI.Button(Rect(Screen.width/2-50*scaleX, Screen.height/2, 100*scaleX, 20*scaleY), "Setting")) {
 		Application.LoadLevel(2);
 	}
 	
-	if(GUI.Button(Rect(Screen.width/2-50, Screen.height/1.65, Screen.width/7.16, Screen.height/20.15), "Quit")) {
+	if(GUI.Button(Rect(Screen.width/2-50*scaleX, Screen.height/1.65, 100*scaleX, 20*scaleY), "Quit")) {
 		Application.Quit();
 	}
 }

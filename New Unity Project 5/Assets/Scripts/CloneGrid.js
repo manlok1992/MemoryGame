@@ -1,5 +1,6 @@
 ﻿#pragma strict
 import System.Collections.Generic;
+import UnityEngine.UI;
 
 public var prefab:GameObject;
 
@@ -23,13 +24,18 @@ static public var timer:float;
 
 static public var isEnd = false;
 
+var isSend = false;
+
 function Awake() {
 	speed = 1.0f;
 	roundCount++;
 	if(roundCount % 5 == 0)
 		speed -= roundCount/5*0.05;
-	else if(roundCount % 10 == 0)
+	if(roundCount % 10 == 0)
 		speed = 0.3f;
+	if(roundCount % 10 == 1) {
+		speed = 1.0-(roundCount/5*0.05);
+	}
 }
 
 function Start () {
@@ -55,13 +61,38 @@ function Start () {
 function Update () {
 	Shuffle(shuffleArr);
 	setShuffleArray();
-	if(GameObject.Find("Text").GetComponent(Text).text == "GameOver") {
+	if(10-timer < 0) {
+		GameObject.Find("Text").GetComponent(Text).text = "Times Up";
+		if(isSend == false) {
+			isSend = true;
+			var k = new Array();
+			var v = new Array();
+			k.Add("Score");
+			k.Add("TestName");
+			k.Add("Timer");
+			var tempScore = TouchBall.score;
+			var tempTimer = 0;
+			v.Add(tempScore);
+			v.Add(PlayerPrefs.GetString("Name"));
+			v.Add(tempTimer);
+			TouchBall.timerArr.Add(CloneGrid.timer);
+				for(var t:float in TouchBall.timerArr) {
+					tempTimer += t;
+				}
+			ConnectDB.ConnectURL(k,v);
+			TimesUp();
+		}
 		for(var temp:GameObject in listGrid) {
 			if(temp.active == true) {
 				temp.active = false;
 			}
 		}
 	}
+}
+
+function TimesUp() {
+	yield WaitForSeconds(1.0f);
+	Application.LoadLevel(0);
 }
 
 function Shuffle(a:Array)

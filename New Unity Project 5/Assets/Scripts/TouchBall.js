@@ -25,6 +25,10 @@ static var isSetScore = false;
 
 var option;
 
+var wrongCount = 0;
+
+static var timerArr:Array;
+
 function Awake() {
 	nowCount = 0;
 	rightCount = 0;
@@ -45,9 +49,13 @@ function Update () {
 	for(var i = 0; i < tempIndex.Length; i++) {
 		tempIndex[i] = ballIndex[i];
 	}
+	GameOver();
+}
+
+function GameOver() {
 	if(ConnectDB.requestMsg.Contains("Connect") && !ConnectDB.requestMsg.Contains("Name is already used")) {
 		ConnectDB.requestMsg = "";
-		Debug.Log("Lose");
+		yield WaitForSeconds(1.0f);
 		Application.LoadLevel(0);
 	}
 }
@@ -68,15 +76,16 @@ function OnMouseDown() {
 					score += 10;
 					if(rightCount == Setting.ballCount) {
 						GameObject.Find("Text").GetComponent(Text).text = "Correct";
+						timerArr.Add(CloneGrid.timer);
+						CloneGrid.timer = 0;
 						CloneGrid.isEnd = true;
-						yield WaitForSeconds(3.0f);
+						yield WaitForSeconds(1.0f);
 						Application.LoadLevel(3);
 					}
 					break;
 				}
 			}
 			else {
-				var wrongCount = 0;
 				for(var temp in touchIndexArr) {
 					if(temp != touchIndex) {
 						wrongCount++;
@@ -87,21 +96,30 @@ function OnMouseDown() {
 					CloneGrid.roundCount = 0;
 					isWrong = true;
 					CloneGrid.isEnd = true;
-					yield WaitForSeconds(3.0f);
-					var k = new Array();
-					var v = new Array();
+					var k:Array = new Array();
+					var v:Array = new Array();
 					k.Add("Score");
 					k.Add("TestName");
 					k.Add("Timer");
 					var tempScore = score;
-					var tempTimer = CloneGrid.timer;
+					var tempTimer:float = 0;
 					v.Add(tempScore);
 					v.Add(PlayerPrefs.GetString("Name"));
+					timerArr.Add(CloneGrid.timer);
+					for(var t:float in timerArr) {
+						tempTimer += t;
+					}
 					v.Add(tempTimer);
+				 	ConnectDB.ConnectURL(k,v);
 					CloneGrid.timer = 0;
 					isSetScore = true;
-					ConnectDB.ConnectURL(k,v);
 					score = 0;
+					for(var g:GameObject in GameObject.FindGameObjectsWithTag("Grid")) {
+						g.GetComponent(SpriteRenderer).enabled = false;
+						g.GetComponent(BoxCollider2D).enabled = false;
+						g.transform.FindChild("Pic").active = false;
+						g.transform.FindChild("Pic").GetComponent(SpriteRenderer).enabled = false;
+					}
 				}
 			}
 		}

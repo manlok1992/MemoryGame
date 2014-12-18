@@ -14,7 +14,9 @@ function Update () {
 	}
 	else if(ConnectDB.requestMsg.Contains("Name is already used")) {
 		if(option == null) {
-			var option = UnityEditor.EditorUtility.DisplayDialog("Name is already used", "Name is already used", "OK");
+		#if UNITY_EDITOR
+			option = UnityEditor.EditorUtility.DisplayDialog("Name is already used", "Name is already used", "OK");
+		#endif
 			ConnectDB.requestMsg = "";
 		}
 	}

@@ -24,13 +24,10 @@ static function ConnectURL(key:Array, value:Array) {
 	while (!w.isDone && w.error == null)
 	{
 		Thread.Sleep(500);
-		Debug.Log("null");
 	    yield null;
 	}
 	
 	yield w;
-		
-	Debug.Log("Connect");
 	
 	if(w.error != null) {
 		Debug.Log("Error: "+w.error);
@@ -38,7 +35,5 @@ static function ConnectURL(key:Array, value:Array) {
 	else {
 		requestMsg = "Connect\n";
 		requestMsg += w.text;
-		Debug.Log(requestMsg);
-		Debug.Log("Message: "+w.text);
 	}
 }
