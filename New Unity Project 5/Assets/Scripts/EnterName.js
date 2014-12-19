@@ -1,5 +1,7 @@
 ﻿#pragma strict
 
+import UnityEngine.UI;
+
 static var playerName:String = "";
 static var isEnterName = false;
 var option;
@@ -8,9 +10,13 @@ function Start () {
 }
 
 function Update () {
-	if(ConnectDB.requestMsg.Contains("Connect") && !ConnectDB.requestMsg.Contains("Name is already used")) {
-		ConnectDB.requestMsg = "";
-		Application.LoadLevel(3);
+	playerName = GameObject.Find("Text").GetComponent(Text).text;
+	Debug.Log(ConnectDB.requestMsg);
+	if(playerName != "") {
+		if(ConnectDB.requestMsg.Contains("Connect") && !ConnectDB.requestMsg.Contains("Name is already used")) {
+			ConnectDB.requestMsg = "";
+			Application.LoadLevel(3);
+		}
 	}
 	else if(ConnectDB.requestMsg.Contains("Name is already used")) {
 		if(option == null) {
@@ -22,10 +28,11 @@ function Update () {
 	}
 }
 
-function OnGUI() {
-	GUI.Label(Rect(Screen.width/2-100, Screen.height/4, Screen.width/3.58,Screen.height/4.03), "Enter Name");
-	playerName = GUI.TextField(Rect(Screen.width/2, Screen.height/4-10, Screen.width/4.03,40), playerName, 50);
-	if(GUI.Button(Rect(Screen.width/2, Screen.height/2.5, Screen.width/7.16,Screen.height/4.03), "Next")) {
+function EnterName() {
+//	GUI.Label(Rect(Screen.width/2-100, Screen.height/4, Screen.width/3.58,Screen.height/4.03), "Enter Name");
+//	playerName = GUI.TextField(Rect(Screen.width/2, Screen.height/4-10, Screen.width/4.03,40), playerName, 50);
+//	if(GUI.Button(Rect(Screen.width/2, Screen.height/2.5, Screen.width/7.16,Screen.height/4.03), "Next")) {
+	Debug.Log("Enter Name");
 		var k = new Array();
 		var v = new Array();
 		k.Add("Name");
@@ -33,5 +40,5 @@ function OnGUI() {
 		PlayerPrefs.SetString("Name", playerName);
 		isEnterName = true;
 		ConnectDB.ConnectURL(k,v);
-	}
+//	}
 }

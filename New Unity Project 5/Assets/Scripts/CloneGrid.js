@@ -47,7 +47,7 @@ function Start () {
 	}
 	for(var i = 0; i < 4; i++) {
 		for(var j = 0; j < 4; j++) {
-			var g = GameObject.Instantiate(prefab, Vector2(-2.5+(2*i), -2.5+(2*j)), Quaternion.identity);
+			var g = GameObject.Instantiate(prefab, Vector2(-3+(2*i), -4+(2*j)), Quaternion.identity);
 			g.AddComponent("TouchBall");
 			listGrid.Add(g);
 			var touchBall = g.GetComponent(TouchBall);
@@ -55,6 +55,7 @@ function Start () {
 			touchBall.touchIndex = index;
 		}
 	}
+	GameObject.Find("CountDown").GetComponent(Text).text = "10.000000";
 	isEnd = false;
 }
 
@@ -62,7 +63,7 @@ function Update () {
 	Shuffle(shuffleArr);
 	setShuffleArray();
 	if(10-timer < 0) {
-		GameObject.Find("Text").GetComponent(Text).text = "Times Up";
+		GameObject.Find("Message").GetComponent(Text).text = "Times Up";
 		if(isSend == false) {
 			isSend = true;
 			var k = new Array();

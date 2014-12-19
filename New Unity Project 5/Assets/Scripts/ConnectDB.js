@@ -21,11 +21,11 @@ static function ConnectURL(key:Array, value:Array) {
 	
 	var w:WWW = new WWW(url, wwwform);
 	
-	while (!w.isDone && w.error == null)
-	{
-		Thread.Sleep(500);
-	    yield null;
-	}
+//	while (!w.isDone && w.error == null)
+//	{
+//		Thread.Sleep(500);
+//	    yield null;
+//	}
 	
 	yield w;
 	
@@ -33,6 +33,7 @@ static function ConnectURL(key:Array, value:Array) {
 		Debug.Log("Error: "+w.error);
 	}
 	else {
+		Debug.Log(w.text);
 		requestMsg = "Connect\n";
 		requestMsg += w.text;
 	}

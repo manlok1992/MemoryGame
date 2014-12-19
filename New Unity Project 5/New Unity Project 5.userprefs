@@ -1,13 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TouchBall.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ConnectDB.js">
     <Files>
-      <File FileName="Assets/Scripts/TouchBall.js" Line="57" Column="28" />
-      <File FileName="Assets/Scripts/CloneGrid.js" Line="58" Column="20" />
-      <File FileName="Assets/Scripts/StartMenu.js" Line="8" Column="22" />
-      <File FileName="Assets/Scripts/Setting.js" Line="26" Column="94" />
-      <File FileName="Assets/Scripts/ConnectDB.js" Line="14" Column="27" />
-      <File FileName="Assets/Scripts/EnterName.js" Line="17" Column="4" />
+      <File FileName="Assets/Scripts/TouchBall.js" Line="78" Column="31" />
+      <File FileName="Assets/Scripts/CloneGrid.js" Line="58" Column="67" />
+      <File FileName="Assets/Scripts/StartMenu.js" Line="12" Column="28" />
+      <File FileName="Assets/Scripts/Setting.js" Line="21" Column="41" />
+      <File FileName="Assets/Scripts/ConnectDB.js" Line="21" Column="2" />
+      <File FileName="Assets/Scripts/EnterName.js" Line="35" Column="1" />
+      <File FileName="Assets/Scripts/ButtonSetting.js" Line="1" Column="1" />
+      <File FileName="Assets/InputBallCount.js" Line="6" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

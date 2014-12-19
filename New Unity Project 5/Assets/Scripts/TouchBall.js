@@ -75,7 +75,7 @@ function OnMouseDown() {
 					isCorrect = true;
 					score += 10;
 					if(rightCount == Setting.ballCount) {
-						GameObject.Find("Text").GetComponent(Text).text = "Correct";
+						GameObject.Find("Message").GetComponent(Text).text = "Correct";
 						timerArr.Add(CloneGrid.timer);
 						CloneGrid.timer = 0;
 						CloneGrid.isEnd = true;
@@ -92,7 +92,7 @@ function OnMouseDown() {
 					}
 				}
 				if(wrongCount == touchIndexArr.Count) {
-					GameObject.Find("Text").GetComponent(Text).text = "GameOver";
+					GameObject.Find("Message").GetComponent(Text).text = "GameOver";
 					CloneGrid.roundCount = 0;
 					isWrong = true;
 					CloneGrid.isEnd = true;
