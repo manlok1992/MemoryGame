@@ -12,7 +12,7 @@ function Awake() {
 }
 
 function Start () {
-
+	GameObject.Find("Text").GetComponent(Text).text = "4";
 }
 
 function Update () {

@@ -26,6 +26,8 @@ static public var isEnd = false;
 
 var isSend = false;
 
+public var sprite:Sprite[];
+
 function Awake() {
 	speed = 1.0f;
 	roundCount++;
@@ -50,6 +52,12 @@ function Start () {
 			var g = GameObject.Instantiate(prefab, Vector2(-3+(2*i), -4+(2*j)), Quaternion.identity);
 			g.AddComponent("TouchBall");
 			listGrid.Add(g);
+			if(ChooseImage.imageName == "Ball")
+				g.transform.FindChild("Pic").GetComponent(SpriteRenderer).sprite = sprite[0];
+			else if(ChooseImage.imageName == "Jonathan")
+				g.transform.FindChild("Pic").GetComponent(SpriteRenderer).sprite = sprite[1];
+			else 
+				g.transform.FindChild("Pic").GetComponent(SpriteRenderer).sprite = sprite[0];
 			var touchBall = g.GetComponent(TouchBall);
 			var index = listGrid.FindIndex(function(go:GameObject) go == g);
 			touchBall.touchIndex = index;
